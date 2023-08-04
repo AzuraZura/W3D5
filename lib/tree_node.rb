@@ -29,7 +29,17 @@ class PolyTreeNode
     node.parent=(nil)
   end
 
-  
+  def dfs(target)
+    return self if self.value == target 
+    
+    if self.children.length > 0
+        self.children.each do |child| 
+            result = child.dfs(target) 
+            return result if !result.nil?
+        end
+    end
+    nil  
+  end
 
   def inspect
     return "value: #{value}, parent: #{parent}, children: #{children}"

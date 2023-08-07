@@ -43,18 +43,15 @@ class PolyTreeNode
 
   def bfs(target)
     return self if self.value == target
-    if self.children.length > 0
-        self.children.each do |child|
-            result = child if child.value == target 
-            return result if !result.nil?
-        end
-    end
-
-    if self.children.length > 0
-        self.children.each do |child_2|
-            result = child_2.bfs(target)
-            return result if !result.nil?
-        end
+    queue = []
+    queue << self
+    until queue.size == 0
+      if queue.first.value == target
+        return queue.first
+      else
+        queue += queue.first.children
+        queue.shift
+      end
     end
     nil
   end
@@ -63,3 +60,18 @@ class PolyTreeNode
     return "value: #{value}, parent: #{parent}, children: #{children}"
   end
 end
+
+# return self if self.value == target
+# result = nil
+# if self.children.length > 0 && 
+#     self.children.each do |child|
+#         result = child if child.value == target 
+#         return result if !result.nil?
+#     end
+# end
+#   if self.children.length > 0
+#       self.children.each do |child_2|
+#           result = child_2.bfs(target)
+#           return result if !result.nil?
+#       end
+#   end
